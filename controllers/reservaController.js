@@ -1,4 +1,4 @@
-const { modelReserva } = require("../models/modelreserva"); // Importa o modelo de reserva
+const { modelReserva } = require("../models/modelReserva"); // Importa o modelo de reserva
 const {modelVeiculo} = require('../models/modelVeiculo');
 const {modelClientes} = require('../models/modelClientes');
 
