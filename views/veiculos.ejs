@@ -1,0 +1,111 @@
+<!-- views/veiculos.ejs -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locadora de Veículos - Lista de Veículos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2d3e50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .status {
+            font-weight: bold;
+        }
+        .disponivel {
+            color: green;
+        }
+        .indisponivel {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Locadora de veículos Liberdade</h1>
+</header>
+
+<div class="container">
+    <h2>Lista de Veículos</h2>
+    
+    <!-- Tabela para exibir os veículos -->
+    <table>
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Categoria</th>
+                <th>Placa</th>
+                <th>RENAVAM</th>
+                <th>Quilometragem</th>
+                <th>Ano de Fabricação</th>
+                <th>Cor</th>
+                <th>Combustível</th>
+                <th>Preço da Diária</th>
+                <th>Status</th>
+                <th>Última Manutenção</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Usando forEach para iterar sobre o array de veículos -->
+            <% veiculos.forEach(function(veiculo) { %>
+                <tr>
+                    <td><%= veiculo.modelo_veiculo %></td>
+                    <td><%= veiculo.marca_veiculo %></td>
+                    <td><%= veiculo.categoria_veiculo %></td>
+                    <td><%= veiculo.placa %></td>
+                    <td><%= veiculo.renavam %></td>
+                    <td><%= veiculo.quilometragem %> km</td>
+                    <td><%= veiculo.ano_fabricacao %></td>
+                    <td><%= veiculo.cor %></td>
+                    <td><%= veiculo.combustivel %></td>
+                    <td>R$ <%= veiculo.preco_diaria %>,00</td>
+                    <td class="status <%= veiculo.status_disponibilidade ? 'disponivel' : 'indisponivel' %>">
+                        <%= veiculo.status_disponibilidade ? 'Disponível' : 'Indisponível' %>
+                    </td>
+                    <td><%= veiculo.data_ultima_manutencao %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
