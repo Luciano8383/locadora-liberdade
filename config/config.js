@@ -4,11 +4,11 @@ const app = express();
 
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('locacaoVeiculos', 'sa', 'UserAdm123',{
+const sequelize = new Sequelize('locacaoVeiculos', 'daianeleiteksn_SQLLogin_1', 'lvxttw75dr',{
 
     dialect: 'mssql',
     dialectModule: require('tedious'),
-    host: 'localhost',
+    host: 'locacaoVeiculos.mssql.somee.com',
     port: 1433
 });
 

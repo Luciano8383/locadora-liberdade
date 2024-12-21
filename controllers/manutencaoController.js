@@ -1,4 +1,5 @@
-const {modelManutencao} = require('../models/modelManutencao'); // Importa o modelo de manutenção
+const { modelManutencao } = require('../models/modelManutencao'); // Importa o modelo de manutenção
+const { modelVeiculo } = require('../models/modelVeiculo');
 
 const manutencaoController = {
     // Controller para coleta e envio de dados
@@ -6,7 +7,12 @@ const manutencaoController = {
     listarManutencao: async (req, res) => {
         try {
             // Utiliza o método 'findAll()' do Sequelize para buscar todas as manutenções.
-            const manutencoes = await modelManutencao.findAll();
+            const manutencoes = await modelManutencao.findAll({
+                include: [{
+                    model: modelVeiculo,
+                    as: 'Veiculo'
+                }]
+            });
             // Envia os dados encontrados (manutenções) para o cliente em formato JSON.
             res.send(manutencoes);
         } catch (error) {
@@ -20,13 +26,13 @@ const manutencaoController = {
     criarManutencao: async (req, res) => {
         try {
             // Extrai os dados da requisição para criação da nova manutenção.
-            const { data, tipo, custo, id_veiculo } = req.body;
+            const { data_manutencao, tipo_manutencao, custo_manutencao, id_veiculo_manutencao } = req.body;
 
             // O método 'create()' do Sequelize é usado para inserir uma nova manutenção no banco de dados.
-            await modelManutencao.create({ data, tipo, custo, id_veiculo });
+            await modelManutencao.create({ data_manutencao, tipo_manutencao, custo_manutencao, id_veiculo_manutencao });
 
             // Após a criação, o cliente é redirecionado para a rota '/listarManutencoes' para ver a lista atualizada de manutenções.
-            res.redirect("/listarManutencoes");
+            res.redirect("/listarManutencao");
         } catch (error) {
             // Em caso de erro, a mensagem de erro é enviada ao cliente.
             res.send("Erro ao acessar a página: " + error);
@@ -39,7 +45,7 @@ const manutencaoController = {
         try {
             // Extrai o 'id_manutencao' dos parâmetros da URL e os dados da manutenção a serem atualizados do corpo da requisição.
             const { id_manutencao } = req.params;
-            const { data, tipo, custo, id_veiculo } = req.body;
+            const { data_manutencao, tipo_manutencao, custo_manutencao, id_veiculo_manutencao } = req.body;
 
             // Busca a manutenção correspondente ao 'id_manutencao' fornecido.
             const manutencao = await modelManutencao.findByPk(id_manutencao);
@@ -51,7 +57,7 @@ const manutencaoController = {
 
             // Atualiza os dados da manutenção no banco de dados com o método 'update()' do Sequelize.
             await modelManutencao.update(
-                { data, tipo, custo, id_veiculo },
+                { data_manutencao, tipo_manutencao, custo_manutencao, id_veiculo_manutencao },
                 { where: { id_manutencao } }
             );
 
@@ -99,5 +105,5 @@ const manutencaoController = {
     }
 };
 
-  // Exporta o controller para que possa ser utilizado em outros arquivos.
-  module.exports = { manutencaoController };
+// Exporta o controller para que possa ser utilizado em outros arquivos.
+module.exports = { manutencaoController };

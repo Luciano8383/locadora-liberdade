@@ -11,21 +11,22 @@ const modelManutencao = sequelize.define('Manutencao', {
         autoIncrement: true,
         primaryKey: true
     },  
-    data: {
+    data_manutencao: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    tipo: {
+    tipo_manutencao: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    custo: {
+    custo_manutencao: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    id_veiculo: {
+    id_veiculo_manutencao: {
         type: DataTypes.STRING,
         allowNull: false,
+        foreignKey: true
     },
 },{
 
@@ -34,12 +35,14 @@ const modelManutencao = sequelize.define('Manutencao', {
   });
     
 modelManutencao.belongsTo(modelVeiculo, {
-    foreignKey: 'id_veiculos',
+    foreignKey: 'id_veiculo_manutencao',
+    sourceKey: 'id_veiculos',
     as: 'Veiculo'
   });
 
 modelVeiculo.hasMany(modelManutencao, {
     foreignKey: 'id_veiculo_manutencao',
+    targetKey: 'id_veiculos',
     as: 'Manutencao'
   });
 
