@@ -29,6 +29,7 @@ app.use('/', manutencaoRoutes);
 app.use('/', funcionariosRoutes);
 app.use('/', clientesRoutes);
 app.use('/', usuariorRoutes);
+app.use(cors());
 
 // Conectar ao banco de dados e iniciar o servidor
 
